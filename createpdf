@@ -12,3 +12,5 @@ pandoc sig.md \
     --syntax-definition=./csd_syntaxhighlighting/csound-sco.xml \
     --template template.latex \
     -o "export/sig.pdf"
+pdfunite "export/DE_Deckblatt_Digitaler_Upload_2020_Signalverarbeitung.pdf" "export/sig.pdf" "export/FDN & Spectral Processing – eine Projektarbeit im Rahmen der Veranstaltung:
+Signalverarbeitung und Audiotechnik.pdf" 
