@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Csound Unified File Format" version="1.00" kateversion="2.4" section="Other" extensions="*.csd;*.CSD" mimetype="" author="Flavio Tordini" license="LGPL">
+  <highlighting>
+    <contexts>
+      <context name="Start" attribute="Normal Text" lineEndContext="#stay">
+        <IncludeRules context="CommentRules" />
+        <StringDetect attribute="CsdTag" context="CsoundSynthesizer" String="&lt;CsoundSynthesizer&gt;" beginRegion="CsoundSynthesizer" firstNonSpace="true" />
+      </context>
+      <context name="CsoundSynthesizer" attribute="Normal Text" lineEndContext="#stay">
+        <IncludeRules context="CommentRules" />
+        <StringDetect attribute="CsdTag" context="#pop" String="&lt;/CsoundSynthesizer&gt;" endRegion="CsoundSynthesizer" firstNonSpace="true" />
+        <StringDetect attribute="CsdTag" context="CsOptions" String="&lt;CsOptions&gt;" beginRegion="Options" firstNonSpace="true" />
+        <StringDetect attribute="CsdTag" context="CsInstruments" String="&lt;CsInstruments&gt;" beginRegion="Orchestra" firstNonSpace="true" />
+        <StringDetect attribute="CsdTag" context="CsScore" String="&lt;CsScore&gt;" beginRegion="Score" firstNonSpace="true" />
+        <StringDetect attribute="CsdTag" context="CsVersion" String="&lt;CsVersion&gt;" beginRegion="Version" firstNonSpace="true" />
+        <RegExpr attribute="CsdTag" context="CsFileB" String="&lt;CsFileB.*&gt;" beginRegion="FileB" firstNonSpace="true" />
+      </context>
+      <context name="CsOptions" attribute="Normal Text" lineEndContext="#stay">
+        <StringDetect attribute="CsdTag" context="#pop" String="&lt;/CsOptions&gt;" endRegion="Options" firstNonSpace="true"/>
+        <IncludeRules context="CommentRules" />
+      </context>
+      <context name="CsVersion" attribute="Normal Text" lineEndContext="#stay">
+        <StringDetect attribute="CsdTag" context="#pop" String="&lt;/CsVersion&gt;" endRegion="Version" firstNonSpace="true"/>
+        <IncludeRules context="CommentRules" />
+      </context>
+      <context name="CsFileB" attribute="Normal Text" lineEndContext="#stay">
+        <StringDetect attribute="CsdTag" context="#pop" String="&lt;/CsFileB&gt;" endRegion="FileB"/>
+      </context>
+      <context name="CsInstruments" attribute="Normal Text" lineEndContext="#stay">
+        <StringDetect attribute="CsdTag" context="#pop" String="&lt;/CsInstruments&gt;" endRegion="Orchestra" firstNonSpace="true"/>
+        <IncludeRules context="##Csound Orchestra" />
+      </context>
+      <context name="CsScore" attribute="Normal Text" lineEndContext="#stay">
+        <StringDetect attribute="CsdTag" context="#pop" String="&lt;/CsScore&gt;" endRegion="Score" firstNonSpace="true"/>
+        <IncludeRules context="##Csound Score" />
+      </context>
+      <context name="CommentRules" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar attribute="Comment" context="Commentar 1" char=";"/>
+        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+      </context>
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
+      <itemData name="Comment"      defStyleNum="dsComment"/>
+      <itemData name="CsdTag" defStyleNum="dsNormal" color="#660000" bold="1"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start=";" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

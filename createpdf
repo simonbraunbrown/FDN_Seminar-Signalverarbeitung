@@ -1,0 +1,14 @@
+#!/bin/bash
+
+pandoc sig.md \
+    --from markdown+implicit_figures \
+    --filter pandoc-crossref \
+    --filter pandoc-citeproc \
+    --number-sections \
+    --pdf-engine=lualatex \
+    --highlight-style=tango \
+    --syntax-definition=./csd_syntaxhighlighting/csound-csd.xml \
+    --syntax-definition=./csd_syntaxhighlighting/csound-orc.xml \
+    --syntax-definition=./csd_syntaxhighlighting/csound-sco.xml \
+    --template template.latex \
+    -o "export/sig.pdf"
